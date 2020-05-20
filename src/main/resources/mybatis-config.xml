@@ -8,9 +8,9 @@
           resources:引入类路径下的资源
           url:引入网络路径或者磁盘路径下的资源
      -->
-    <properties resource="dbconfig.properties">
+    <!--<properties resource="dbconfig.properties">
 
-    </properties>
+    </properties>-->
     <!--
         2.settings 包含了很多重要的设置项，每一个设置项用一个 <setting name="mapUnderscoreToCamelCase" value="true"/> 来表示
             name 代表设置项名字，value 代表这个设置项的取值
@@ -30,13 +30,13 @@
     <!--
         3.typeAliases 别名处理器，可以为我们的Java类型起别名，主要对处理 Mapper 的 xml 中的 resultType 属性
     -->
-    <typeAliases>
-        <!-- typeAlias：为某个 Java 类型起别名，别名不区分大小写，type：指定要起别名的类型全类名，默认别名是类名的小写 employee；alias：指定新的别名 -->
-        <!--<typeAlias type="com.zhangjie.bean.Employee" alias="Employee"/>-->
-        <!-- package:为某个包下的所有的类批量起别名，name：指定包名（为当前包和该包下的所有的子包中的每一个类都起一个默认的别名（默认别名是类名的小写）） -->
+    <!--<typeAliases>
+        &lt;!&ndash; typeAlias：为某个 Java 类型起别名，别名不区分大小写，type：指定要起别名的类型全类名，默认别名是类名的小写 employee；alias：指定新的别名 &ndash;&gt;
+        &lt;!&ndash;<typeAlias type="com.zhangjie.bean.Employee" alias="Employee"/>&ndash;&gt;
+        &lt;!&ndash; package:为某个包下的所有的类批量起别名，name：指定包名（为当前包和该包下的所有的子包中的每一个类都起一个默认的别名（默认别名是类名的小写）） &ndash;&gt;
         <package name="com.zhangjie.bean" />
-        <!--批量起别名的情况下，可以使用@Alias("emp")某个类型指定新的别名-->
-    </typeAliases>
+        &lt;!&ndash;批量起别名的情况下，可以使用@Alias("emp")某个类型指定新的别名&ndash;&gt;
+    </typeAliases>-->
     <!--
         4.environments：环境们，mybatis可以配置多种环境，default 指定使用某种环境，可以达到快速切换环境的目的
         每一个 environment 就是配置一个具体的环境，id代表当前环境的唯一标识
@@ -46,7 +46,7 @@
         dataSource（数据源，type是数据源类型（UNPOOLED(UnpooledDataSourceFactory)、POOLED(PooledDataSourceFactory)、JNDI(JndiDataSourceFactory)、自定义(实现 DataSourceFactory 接口，type 写自定义的类的全类名)））
         两个标签必须都存在在 environment 标签中
      -->
-    <environments default="development">
+    <!--<environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
@@ -56,7 +56,7 @@
                 <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
-    </environments>
+    </environments>-->
     <!--
         5.databaseIdProvider 支持多数据库厂商
             type="DB_VENDOR"(VendorDatabaseIdProvider) 得到数据库厂商的标识（驱动自带，DatabaseMetaData.getDatabaseProductName()），mybatis 就能根据数据库厂商的标识来执行不同的sql
@@ -78,12 +78,12 @@
                 2.没有sql映射文件，所有的sql都是利用注解写在接口上
                 推荐：比较重要的或者逻辑比较复杂的Dao接口写sql配置文件，不重要的或者逻辑比较简单的可以使用注解
     -->
-    <mappers>
-        <!--mapper:注册一个sql映射-->
-        <!--<mapper resource="EmployeeMapper.xml"/>
-        <mapper class="com.zhangjie.dao.EmployeeMapperAnnotation"/>-->
-        <!--批量注册:必须要求 sql 映射文件和 Mapper 接口 放在相同的 package 中-->
+    <!--<mappers>
+        &lt;!&ndash;mapper:注册一个sql映射&ndash;&gt;
+        &lt;!&ndash;<mapper resource="EmployeeMapper.xml"/>
+        <mapper class="com.zhangjie.dao.EmployeeMapperAnnotation"/>&ndash;&gt;
+        &lt;!&ndash;批量注册:必须要求 sql 映射文件和 Mapper 接口 放在相同的 package 中&ndash;&gt;
         <package name="com.zhangjie.dao"/>
-    </mappers>
+    </mappers>-->
 
 </configuration>
