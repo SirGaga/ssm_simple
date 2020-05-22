@@ -17,6 +17,7 @@ public class EmployeeController {
     @ResponseBody
     public String getEmployeeById(){
         Employee employee = employeeService.getEmployeeById(1);
+        System.out.println(employee);
         return employee.getLastName();
     	
     }

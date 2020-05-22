@@ -1,6 +1,7 @@
 package com.zhangjie.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -15,15 +16,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.util.Properties;
 
 // Spring 的根容器不扫描 Controller 组件，是一个父容器
+@Configuration
+@MapperScan("com.zhangjie.dao")
 @ComponentScan(value="com.zhangjie",excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {Controller.class})
 })
-@Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:/dbconfig.properties")
-@MapperScan("com.zhangjie.dao")
 public class RootConfig {
     // 控制业务逻辑：数据源、事务控制、aop
 	@Value("${jdbc.username}")
@@ -54,9 +56,17 @@ public class RootConfig {
         sqlSessionFactoryBean.setDataSource(dataSource());
         sqlSessionFactoryBean.setTypeAliasesPackage("com.zhangjie.bean");
         PathMatchingResourcePatternResolver resolver =new PathMatchingResourcePatternResolver();
-        sqlSessionFactoryBean.setConfigLocation(resolver.getResource("mybatis-config.xml"));
+        sqlSessionFactoryBean.setConfigLocation(resolver.getResource("classpath*:mybatis-config.xml"));
+
+        VendorDatabaseIdProvider provider = new VendorDatabaseIdProvider();
+        Properties p = new Properties();
+        p.setProperty("MySQL","mysql");
+        provider.setProperties(p);
+        sqlSessionFactoryBean.setDatabaseIdProvider(provider);
+
+
         // 动态获取SqlMapper
-        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("com/zhangjie/**/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath*:mappers/**Mapper.xml"));
 
         return sqlSessionFactoryBean.getObject();
     }
