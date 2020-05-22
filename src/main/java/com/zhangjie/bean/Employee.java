@@ -7,7 +7,11 @@ import java.io.Serializable;
 // 使用该注解为Java类起别名，避免产生mybatis自动给Java类起别名的时候出现别名重复的现象，产生报错
 @Alias("emp")
 public class Employee implements Serializable {
-    private Integer id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 889917697103818605L;
+	private Integer id;
     private String lastName;
     private String gender;
     private String email;
